@@ -3,6 +3,7 @@ FROM ubuntu:latest
 ARG IPEX_REPO_URL=https://pytorch-extension.intel.com/release-whl/stable/xpu/us/
 ARG COMFY_VERSION=v0.3.44
 ARG COMFY_MANAGER_VERSION=3.33.8
+ARG COMFY_GGUF_VERSION=main
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --fix-missing \
@@ -54,12 +55,16 @@ RUN pip3 install \
 # install comfy
 RUN mkdir -p /tmp/src/ && \
     curl -L "https://github.com/comfyanonymous/ComfyUI/archive/refs/tags/${COMFY_VERSION}.tar.gz" --output "/tmp/src/comfy-${COMFY_VERSION}.tar.gz" && \
-    curl -L "https://github.com/Comfy-Org/ComfyUI-Manager/archive/refs/tags/${COMFY_MANAGER_VERSION}.tar.gz" --output "/tmp/src/comfy-manager-${COMFY_VERSION}.tar.gz"
+    curl -L "https://github.com/Comfy-Org/ComfyUI-Manager/archive/refs/tags/${COMFY_MANAGER_VERSION}.tar.gz" --output "/tmp/src/comfy-manager-${COMFY_MANAGER_VERSION}.tar.gz" && \
+    curl -L "https://github.com/city96/ComfyUI-GGUF/archive/refs/heads/main.tar.gz" --output "/tmp/src/comfy-gguf-${COMFY_GGUF_VERSION}.tar.gz"
 RUN tar -xvf "/tmp/src/comfy-${COMFY_VERSION}.tar.gz" --strip-components=1 -C /app/ && \
     mkdir -p /app/custom_nodes/comfyui-manager && \
-    tar -xvf "/tmp/src/comfy-manager-${COMFY_VERSION}.tar.gz" --strip-components=1 -C /app/custom_nodes/comfyui-manager && \
+    tar -xvf "/tmp/src/comfy-manager-${COMFY_MANAGER_VERSION}.tar.gz" --strip-components=1 -C /app/custom_nodes/comfyui-manager && \
+    mkdir -p /app/custom_nodes/comfyui-gguf && \
+    tar -xvf "/tmp/src/comfy-gguf-${COMFY_GGUF_VERSION}.tar.gz" --strip-components=1 -C /app/custom_nodes/comfyui-gguf && \
     pip3 install -r /app/requirements.txt && \
-    pip3 install -r /app/custom_nodes/comfyui-manager/requirements.txt
+    pip3 install -r /app/custom_nodes/comfyui-manager/requirements.txt && \
+    pip3 install -r /app/custom_nodes/comfyui-gguf/requirements.txt
 
 # launcher script
 USER root
