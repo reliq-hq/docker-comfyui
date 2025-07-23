@@ -5,7 +5,9 @@ ARG COMFY_VERSION=v0.3.44
 ARG COMFY_MANAGER_VERSION=3.33.8
 ARG COMFY_GGUF_VERSION=main
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update -y && \
+RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
+    --mount=target=/var/cache/apt,type=cache,sharing=locked \
+    DEBIAN_FRONTEND=noninteractive apt-get update -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --fix-missing \
     git \
     gpg \
@@ -16,11 +18,15 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -y && \
     DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y
 
 # add extra repos
-RUN add-apt-repository -y ppa:kobuk-team/intel-graphics && \
+RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
+    --mount=target=/var/cache/apt,type=cache,sharing=locked \
+    add-apt-repository -y ppa:kobuk-team/intel-graphics && \
     DEBIAN_FRONTEND=noninteractive apt-get update -y 
 
 # install graphics driver
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --fix-missing \
+RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
+    --mount=target=/var/cache/apt,type=cache,sharing=locked \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --fix-missing \
     libze-intel-gpu1 \
     libze1 \
     intel-metrics-discovery \
@@ -29,7 +35,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --
     intel-gsc
 
 # install python3.12
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --fix-missing \
+RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
+    --mount=target=/var/cache/apt,type=cache,sharing=locked \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --fix-missing \
     python3-venv
 
 RUN useradd -rm -d /app -s /bin/bash -g root -G sudo,video -u 1001 comfy
@@ -42,12 +50,14 @@ ENV PATH="/app/venv/bin:$PATH"
 
 # install dependencies
 # see https://pytorch-extension.intel.com/installation?platform=gpu for latest version
-RUN pip3 install --pre --upgrade \
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip3 install --pre --upgrade \
     torch==2.7.0 \
     torchvision==0.22.0 \
     torchaudio==2.7.0 \
     --index-url https://download.pytorch.org/whl/xpu 
-RUN pip3 install \
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip3 install \
     intel-extension-for-pytorch==2.7.10+xpu \
     oneccl_bind_pt==2.7.0+xpu \
     --extra-index-url ${IPEX_REPO_URL}
