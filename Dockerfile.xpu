@@ -74,7 +74,10 @@ RUN tar -xvf "/tmp/src/comfy-${COMFY_VERSION}.tar.gz" --strip-components=1 -C /a
     tar -xvf "/tmp/src/comfy-gguf-${COMFY_GGUF_VERSION}.tar.gz" --strip-components=1 -C /app/custom_nodes/comfyui-gguf && \
     pip3 install -r /app/requirements.txt && \
     pip3 install -r /app/custom_nodes/comfyui-manager/requirements.txt && \
-    pip3 install -r /app/custom_nodes/comfyui-gguf/requirements.txt
+    pip3 install -r /app/custom_nodes/comfyui-gguf/requirements.txt && \
+    tar -cvf /app/custom_nodes_backup.tar.gz -C custom_nodes \
+        comfyui-manager \
+        comfyui-gguf
 
 # launcher script
 USER root
@@ -86,6 +89,7 @@ RUN rm -rf "/tmp/src" && \
     pip3 cache purge && \
     apt-get clean -y
 
+VOLUME ["/app/custom_nodes"]
 VOLUME ["/app/models"]
 VOLUME ["/app/user"]
 
