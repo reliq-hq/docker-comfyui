@@ -67,7 +67,9 @@ RUN mkdir -p /tmp/src/ && \
     curl -L "https://github.com/comfyanonymous/ComfyUI/archive/refs/${COMFY_VERSION}.tar.gz" --output "/tmp/src/comfy.tar.gz" && \
     curl -L "https://github.com/Comfy-Org/ComfyUI-Manager/archive/refs/${COMFY_MANAGER_VERSION}.tar.gz" --output "/tmp/src/comfy-manager.tar.gz" && \
     curl -L "https://github.com/city96/ComfyUI-GGUF/archive/refs/${COMFY_GGUF_VERSION}.tar.gz" --output "/tmp/src/comfy-gguf.tar.gz"
-RUN mkdir -p /app/custom_nodes/comfyui-manager && \
+
+RUN --mount=type=cache,target=/app/.cache/pip \
+    mkdir -p /app/custom_nodes/comfyui-manager && \
     mkdir -p /app/custom_nodes/comfyui-gguf && \
     tar -xvf "/tmp/src/comfy.tar.gz" --strip-components=1 -C /app/ && \
     tar -xvf "/tmp/src/comfy-manager.tar.gz" --strip-components=1 -C /app/custom_nodes/comfyui-manager && \
