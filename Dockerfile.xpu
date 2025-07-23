@@ -69,8 +69,8 @@ RUN mkdir -p /tmp/src/ && \
     curl -L "https://github.com/city96/ComfyUI-GGUF/archive/refs/heads/main.tar.gz" --output "/tmp/src/comfy-gguf-${COMFY_GGUF_VERSION}.tar.gz"
 RUN tar -xvf "/tmp/src/comfy-${COMFY_VERSION}.tar.gz" --strip-components=1 -C /app/ && \
     mkdir -p /app/custom_nodes/comfyui-manager && \
-    tar -xvf "/tmp/src/comfy-manager-${COMFY_MANAGER_VERSION}.tar.gz" --strip-components=1 -C /app/custom_nodes/comfyui-manager && \
     mkdir -p /app/custom_nodes/comfyui-gguf && \
+    tar -xvf "/tmp/src/comfy-manager-${COMFY_MANAGER_VERSION}.tar.gz" --strip-components=1 -C /app/custom_nodes/comfyui-manager && \
     tar -xvf "/tmp/src/comfy-gguf-${COMFY_GGUF_VERSION}.tar.gz" --strip-components=1 -C /app/custom_nodes/comfyui-gguf && \
     pip3 install -r /app/requirements.txt && \
     pip3 install -r /app/custom_nodes/comfyui-manager/requirements.txt && \
