@@ -11,16 +11,22 @@ This project provides Docker images to run [ComfyUI](https://github.com/comfyano
 ## Prerequisites
 
 - Docker installed on your system.
-- An Intel Arc Series GPU.
+- An Intel Arc Series GPU, A770 (Alchemist) and B580 (Battlemage) are supported.
 - Intel graphics drivers installed on the host machine.
 
 ## Getting Started
 
-To run the pre-built image from Docker Hub (once available), you can use the following command:
+To run the pre-built image from Github Container repo, you can use the following command:
 
 ```bash
-docker run -p 8188:8188 --device /dev/dri -v ./models:/app/models -v ./user:/app/user ghcr.io/reliq-hq/comfyui:xpu-latest
+docker run -p 8188:8188 --device /dev/dri \
+    -v ./models:/app/models \
+    -v ./user:/app/user \
+    -v ./custom_nodes:/app/custom_nodes \
+    ghcr.io/reliq-hq/comfyui:xpu-latest
 ```
+
+The image is also available on Docker Hub: https://hub.docker.com/r/reliqcontainers/comfyui
 
 This command will:
 - Start the ComfyUI container.
@@ -44,6 +50,7 @@ Once the build is complete, you can run the image using the `docker run` command
 - **Volumes:**
     - `/app/models`:  Used for storing ComfyUI models.
     - `/app/user`: Used for storing user-specific data and configurations.
+    - `/app/custom_nodes`: Used to store installed custom_nodes.
 
 ## License
 
