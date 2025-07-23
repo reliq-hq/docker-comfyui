@@ -23,7 +23,7 @@ docker run -p 8188:8188 --device /dev/dri \
     -v ./models:/app/models \
     -v ./user:/app/user \
     -v ./custom_nodes:/app/custom_nodes \
-    ghcr.io/reliq-hq/comfyui:xpu-latest
+    ghcr.io/reliq-hq/comfyui:xpu-master
 ```
 
 The image is also available on Docker Hub: https://hub.docker.com/r/reliqcontainers/comfyui
@@ -42,7 +42,7 @@ You can also build the Docker image locally using the provided `Dockerfile.xpu`:
 docker build -t docker-comfyui -f Dockerfile.xpu .
 ```
 
-Once the build is complete, you can run the image using the `docker run` command from the "Getting Started" section, replacing `ghcr.io/reliq-hq/comfyui:xpu-latest` with `docker-comfyui`.
+Once the build is complete, you can run the image using the `docker run` command from the "Getting Started" section, replacing `ghcr.io/reliq-hq/comfyui:xpu-master` with `docker-comfyui`.
 
 ## Configuration
 
