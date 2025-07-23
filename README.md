@@ -1,3 +1,5 @@
+![Docker Pulls](https://img.shields.io/docker/pulls/reliqcontainers/comfyui)
+
 # Docker ComfyUI for Intel XPU
 
 This project provides Docker images to run [ComfyUI](https://github.com/comfyanonymous/ComfyUI) with XPU acceleration on Intel Arc Series GPUs (Alchemist and Battlemage).
