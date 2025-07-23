@@ -32,7 +32,7 @@ This command will:
 - Start the ComfyUI container.
 - Expose the ComfyUI web interface on port `8188`.
 - Mount the `/dev/dri` device to enable GPU access.
-- Mount local `./models` and `./user` directories for persistent storage of models and user data.
+- Mount local `./models`, `./user` and `./custom_nodes` directories for persistent storage of models, user data and extra nodes.
 
 ## Building the Image
 
