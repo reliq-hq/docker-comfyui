@@ -1,4 +1,4 @@
-![Docker Pulls](https://img.shields.io/docker/pulls/reliqcontainers/comfyui)
+![Docker Pulls](https://img.shields.io/docker/pulls/reliqcontainers/comfyui)[![Container image build](https://github.com/reliq-hq/docker-comfyui/actions/workflows/docker.yml/badge.svg)](https://github.com/reliq-hq/docker-comfyui/actions/workflows/docker.yml)
 
 # Docker ComfyUI for Intel XPU
 
