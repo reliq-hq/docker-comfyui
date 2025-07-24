@@ -1,4 +1,4 @@
-name: Create and publish a container image
+name: Container image build
 
 on:
   schedule:
