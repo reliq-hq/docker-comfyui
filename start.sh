@@ -10,6 +10,7 @@ if test "$FORCE_CPU" = "1"; then
 fi
 
 if test -n "$(find "$CUSTOM_NODES_DIR/" -maxdepth 0 -empty)" ; then
+    chown comfy -R $CUSTOM_NODES_DIR
     echo "$CUSTOM_NODES_DIR is empty: unpack pre-installed set"
     su comfy -c "tar -xvf \"$APP_DIR/custom_nodes_backup.tar.gz\" -C \"$CUSTOM_NODES_DIR/\""
 fi
