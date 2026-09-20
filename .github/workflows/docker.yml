@@ -8,6 +8,8 @@ on:
       - 'master'
     tags:
       - 'v*.*.*'
+  workflow_dispatch:
+
 env:
   REGISTRY: ghcr.io
   REPO_ORG: reliq-hq
